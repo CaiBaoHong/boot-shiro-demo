@@ -8,6 +8,7 @@ import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.mgt.DefaultSecurityManager;
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.subject.Subject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +63,32 @@ public class UserServiceTest {
         sm.setRealm(customizedRealm);
         SecurityUtils.setSecurityManager(sm);
         userService.login("bao","123456");
+    }
+
+    @Test
+    public void testLoginAndHasRole(){
+        DefaultSecurityManager sm = new DefaultSecurityManager();
+        sm.setRealm(customizedRealm);
+        SecurityUtils.setSecurityManager(sm);
+        userService.login("bao","123456");
+        Subject subject = SecurityUtils.getSubject();
+        boolean hasRole = subject.hasRole("general_user");
+        System.out.println("user 'bao' hasRole 'general_user' ? --> "+hasRole);
+        boolean hasRoleRoot = subject.hasRole("root");
+        System.out.println("user 'bao' hasRole 'root' ? --> "+hasRoleRoot);
+    }
+
+    @Test
+    public void testLoginAndHasPermission(){
+        DefaultSecurityManager sm = new DefaultSecurityManager();
+        sm.setRealm(customizedRealm);
+        SecurityUtils.setSecurityManager(sm);
+        userService.login("bao","123456");
+        Subject subject = SecurityUtils.getSubject();
+        boolean permLog = subject.isPermitted("log:mgr");
+        boolean permData = subject.isPermitted("data:mgr");
+        System.out.println("user 'bao' isPermitted 'log:mgr' ? --> "+permLog);
+        System.out.println("user 'bao' isPermitted 'data:mgr' ? --> "+permData);
     }
 
 
