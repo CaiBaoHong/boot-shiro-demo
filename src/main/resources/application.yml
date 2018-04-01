@@ -12,3 +12,13 @@ spring:
   profiles:
     active: dev
     include: redis
+shiro:
+  enabled: true
+  loginUrl: /page/login
+  successUrl: /page/index
+  unauthorizedUrl: /page/401
+  userNativeSessionManager: true
+  sessionManager:
+    sessionIdUrlRewritingEnabled: false
+
+

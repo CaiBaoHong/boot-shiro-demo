@@ -37,8 +37,8 @@ repositories {
 dependencies {
     //spring boot的starter
     compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'org.springframework.boot:spring-boot-starter-aop'
     compile 'org.springframework.boot:spring-boot-starter-jdbc'
+    compile 'org.springframework.boot:spring-boot-starter-aop'
     compile 'org.springframework.boot:spring-boot-starter-data-redis'
     runtime 'org.springframework.boot:spring-boot-devtools'
     testCompile 'org.springframework.boot:spring-boot-starter-test'
@@ -48,12 +48,12 @@ dependencies {
     compile 'com.alibaba:druid-spring-boot-starter:1.1.9'
 
     //shiro
-//    compile 'org.apache.shiro:shiro-spring-boot-web-starter:1.4.0'
-    compile 'org.apache.shiro:shiro-core:1.4.0'
-//    compile 'org.apache.shiro:shiro-web:1.4.0'
-//    compile 'org.apache.shiro:shiro-spring:1.4.0'
-//    compile 'org.apache.shiro:shiro-aspectj:1.4.0'
-//    compile 'org.crazycake:shiro-redis:2.8.24'
+    compile 'org.apache.shiro:shiro-spring-boot-web-starter:1.4.0'
+    compile 'org.apache.shiro:shiro-aspectj:1.4.0'
+    compile 'org.crazycake:shiro-redis:2.8.24'
+
+    //其它
+    compile 'com.alibaba:fastjson:1.2.47'
 
 }
 
@@ -64,6 +64,9 @@ dependencyManagement {
         mavenBom "org.springframework.boot:spring-boot-starter-parent:${springBootVersion}"
     }
 }
+
+
+
 
 
 

@@ -18,15 +18,15 @@ import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
-@Component
+
 public class CustomizedRealm extends AuthorizingRealm {
 
-    @Autowired
     private UserService userService;
-    @Autowired
     private RoleService roleService;
-    @Autowired
     private PermissionService permissionService;
+
+
+
 
     {
         //设置用于匹配密码的CredentialsMatcher
@@ -68,18 +68,13 @@ public class CustomizedRealm extends AuthorizingRealm {
         }
 
         User userDB = userService.findByUname(username);
-        Long userId = userDB.getUid();
-        String password = userDB.getPwd();
-        String salt = userDB.getPwdSalt();
-
-        if (password == null) {
+        if (userDB == null) {
             throw new UnknownAccountException("No account found for user [" + username + "]");
         }
 
-        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(userId, password, getName());
-
-        if (salt != null) {
-            info.setCredentialsSalt(ByteSource.Util.bytes(salt));
+        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(userDB.getUid(), userDB.getPwd(), getName());
+        if (userDB.getPwdSalt() != null) {
+            info.setCredentialsSalt(ByteSource.Util.bytes(userDB.getPwdSalt()));
         }
 
         return info;
